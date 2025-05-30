@@ -16,3 +16,18 @@
 {"level":"info","message":"::1 - - [30/May/2025:13:45:19 +0000] \"POST /api/items HTTP/1.1\" 201 392 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:19.000Z"}
 {"level":"info","message":"::1 - - [30/May/2025:13:45:31 +0000] \"GET /api/items HTTP/1.1\" 200 425 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:31.649Z"}
 {"level":"info","message":"::1 - - [30/May/2025:13:45:40 +0000] \"POST /api/items/6839b66ea23c1ed1480d0bfe/publish HTTP/1.1\" 200 424 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:40.358Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T13:49:51.363Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T13:49:51.364Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T13:49:51.364Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:49:58 +0000] \"GET /health HTTP/1.1\" 200 245 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:49:58.074Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:10 +0000] \"POST /api/items HTTP/1.1\" 201 581 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:10.590Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:19 +0000] \"POST /api/items HTTP/1.1\" 201 581 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:19.157Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:25 +0000] \"GET /api/items?currency=peanuts&level=5&tags=space HTTP/1.1\" 200 1114 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:25.765Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:32 +0000] \"GET /api/items/6839b79b382c0ffd1ef3df2b HTTP/1.1\" 200 543 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:32.419Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:38 +0000] \"PUT /api/items/6839b79b382c0ffd1ef3df2b HTTP/1.1\" 200 619 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:38.218Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:43 +0000] \"POST /api/items/6839b79b382c0ffd1ef3df2b/archive HTTP/1.1\" 200 623 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:43.356Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:48 +0000] \"GET /api/items/stats/summary HTTP/1.1\" 200 361 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:48.725Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:50:56 +0000] \"POST /api/items HTTP/1.1\" 400 919 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:50:56.054Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:51:01 +0000] \"POST /api/items/6839b792382c0ffd1ef3df29/duplicate HTTP/1.1\" 201 591 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:01.937Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:51:09 +0000] \"POST /api/items HTTP/1.1\" 201 588 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:09.668Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:51:14 +0000] \"GET /api/items?clothingType=battle%20armor&currency=diamonds&minLevel=20 HTTP/1.1\" 200 697 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:14.643Z"}
