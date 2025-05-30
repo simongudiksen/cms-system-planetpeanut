@@ -1,29 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
+import { useRouter } from "next/router";
 import { Layout } from "@/components/layout/Layout";
-import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
-import { Select } from "@/components/ui/Select";
-import Link from "next/link";
+import { ItemForm } from "@/components/items/ItemForm";
+import { Alert } from "@/components/ui/Alert";
+import { CreateItemRequest } from "@/types";
+import { api, handleApiError } from "@/utils/api";
 
-export default function CreateItemPage() {
-  const [isLoading, setIsLoading] = React.useState(false);
+const NewItemPage: React.FC = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState<{
+    type: "success" | "error" | "warning" | "info";
+    message: string;
+  } | null>(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsLoading(true);
-    // Form submission will be implemented in the next phase
-    setTimeout(() => setIsLoading(false), 1000);
+  const handleSubmit = async (data: CreateItemRequest, images: File[]) => {
+    try {
+      setIsLoading(true);
+      setAlert(null);
+
+      // First, upload images if any
+      let imageUrls = {};
+      if (images.length > 0) {
+        const formData = new FormData();
+        images.forEach((file, index) => {
+          formData.append("images", file);
+        });
+
+        const uploadResponse = await api.uploadItemImages(formData);
+
+        if (uploadResponse.success && uploadResponse.data) {
+          imageUrls = uploadResponse.data.imageUrls;
+        } else {
+          throw new Error(
+            uploadResponse.error?.message || "Failed to upload images"
+          );
+        }
+      }
+
+      // Create item with image URLs
+      const itemData: CreateItemRequest = {
+        ...data,
+        imageRaisedUrl: (imageUrls as any).raised,
+        imageShopUrl: (imageUrls as any).shop,
+        imageThumbnailUrl: (imageUrls as any).raisedThumbnail,
+        imageMediumUrl: (imageUrls as any).raisedMedium,
+      };
+
+      const response = await api.createItem(itemData);
+
+      if (response.success && response.data) {
+        setAlert({
+          type: "success",
+          message: `Item "${data.title}" created successfully!`,
+        });
+
+        // Redirect to the item's edit page after a short delay
+        setTimeout(() => {
+          router.push(`/items/${response.data?.item._id}`);
+        }, 1500);
+      } else {
+        throw new Error(response.error?.message || "Failed to create item");
+      }
+    } catch (error) {
+      setAlert({
+        type: "error",
+        message: handleApiError(error),
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleSaveDraft = async (data: CreateItemRequest, images: File[]) => {
+    // Save as draft is the same as regular save but with status: 'draft'
+    await handleSubmit({ ...data, status: "draft" }, images);
   };
 
   return (
-    <Layout title="Create Item">
-      <div className="space-y-6">
+    <Layout>
+      <div className="p-6">
         {/* Header */}
-        <div className="flex items-center space-x-4">
-          <Link href="/items">
-            <Button variant="outline" size="sm">
+        <div className="mb-8">
+          <div className="flex items-center space-x-4">
+            <button
+              onClick={() => router.back()}
+              className="text-gray-500 hover:text-gray-700 transition-colors"
+            >
               <svg
-                className="w-4 h-4 mr-2"
+                className="w-6 h-6"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -32,88 +97,41 @@ export default function CreateItemPage() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M10 19l-7-7m0 0l7-7m-7 7h18"
+                  d="M15 19l-7-7 7-7"
                 />
               </svg>
-              Back to Items
-            </Button>
-          </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">
-              Create New Item
-            </h1>
-            <p className="text-gray-600">
-              Add a new avatar item to your catalog
-            </p>
+            </button>
+            <div>
+              <h1 className="text-2xl font-bold text-gray-900">
+                Create New Item
+              </h1>
+              <p className="text-gray-600">
+                Add a new item to your Planet Peanut collection
+              </p>
+            </div>
           </div>
         </div>
 
+        {/* Alert */}
+        {alert && (
+          <div className="mb-6">
+            <Alert
+              type={alert.type}
+              message={alert.message}
+              onClose={() => setAlert(null)}
+            />
+          </div>
+        )}
+
         {/* Form */}
-        <div className="bg-white rounded-xl shadow-soft border border-gray-100 p-8">
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Input
-                label="Item Title"
-                placeholder="Enter item title"
-                required
-              />
-
-              <Select
-                label="Clothing Type"
-                placeholder="Select clothing type"
-                options={[
-                  { value: "weapons", label: "Weapons" },
-                  { value: "casual wear", label: "Casual Wear" },
-                  { value: "space gear", label: "Space Gear" },
-                ]}
-                required
-              />
-
-              <Input label="Price" type="number" placeholder="0" required />
-
-              <Select
-                label="Currency"
-                placeholder="Select currency"
-                options={[
-                  { value: "diamonds", label: "Diamonds 💎" },
-                  { value: "peanuts", label: "Peanuts 🥜" },
-                ]}
-                required
-              />
-
-              <Input label="Level" type="number" placeholder="1" required />
-
-              <Select
-                label="Layer"
-                placeholder="Select layer"
-                options={[
-                  { value: "body_layer1", label: "Body Layer 1" },
-                  { value: "head_layer1", label: "Head Layer 1" },
-                  { value: "accessory", label: "Accessory" },
-                ]}
-                required
-              />
-            </div>
-
-            <div>
-              <label className="label">Description</label>
-              <textarea
-                className="input min-h-[100px] resize-none"
-                placeholder="Enter item description..."
-              />
-            </div>
-
-            <div className="flex justify-end space-x-4">
-              <Link href="/items">
-                <Button variant="outline">Cancel</Button>
-              </Link>
-              <Button type="submit" isLoading={isLoading}>
-                Create Item
-              </Button>
-            </div>
-          </form>
-        </div>
+        <ItemForm
+          onSubmit={handleSubmit}
+          onSaveDraft={handleSaveDraft}
+          isLoading={isLoading}
+        />
       </div>
     </Layout>
   );
-}
+};
+
+export default NewItemPage;

@@ -372,3 +372,9 @@ export const handleApiError = (error: unknown): string => {
 
 // Export token manager for auth
 export { TokenManager };
+
+// Export utility functions directly for convenience
+export const formatCurrency = utils.formatCurrency;
+export const formatDate = utils.formatDate;
+export const formatDateTime = utils.formatDateTime;
+export const formatFileSize = utils.formatFileSize;
