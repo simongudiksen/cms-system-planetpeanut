@@ -352,6 +352,99 @@ const checkUploadHealth = catchAsync(async (req, res, next) => {
   });
 });
 
+/**
+ * Upload both raised and shop images for item creation
+ * Processes both images and returns all generated size URLs
+ */
+const uploadItemImages = catchAsync(async (req, res) => {
+  const { files } = req;
+
+  if (!files || (!files.imageRaised && !files.imageShop)) {
+    throw new AppError(
+      "At least one image file is required (imageRaised or imageShop)",
+      400
+    );
+  }
+
+  const results = {
+    success: true,
+    data: {
+      imageUrls: {},
+      processedSizes: [],
+    },
+  };
+
+  try {
+    // Process imageRaised if provided
+    if (files.imageRaised && files.imageRaised[0]) {
+      const raisedFile = files.imageRaised[0];
+
+      logger.info(`Processing raised image: ${raisedFile.originalname}`);
+
+      // Process image through imageService
+      const processedImages = await imageService.processImage(
+        raisedFile.buffer
+      );
+
+      // Upload to Supabase with temporary itemId (will be replaced when item is created)
+      const tempItemId = `temp_${Date.now()}_raised`;
+      const uploadResult = await supabaseService.uploadImageSizes(
+        processedImages,
+        tempItemId,
+        "raised"
+      );
+
+      if (uploadResult.success) {
+        results.data.imageUrls.raised = uploadResult.data.raised?.url;
+        results.data.imageUrls.raisedThumbnail =
+          uploadResult.data.thumbnail?.url;
+        results.data.imageUrls.raisedMedium = uploadResult.data.medium?.url;
+        results.data.processedSizes.push("raised");
+      }
+    }
+
+    // Process imageShop if provided
+    if (files.imageShop && files.imageShop[0]) {
+      const shopFile = files.imageShop[0];
+
+      logger.info(`Processing shop image: ${shopFile.originalname}`);
+
+      // Process image through imageService
+      const processedImages = await imageService.processImage(shopFile.buffer);
+
+      // Upload to Supabase with temporary itemId
+      const tempItemId = `temp_${Date.now()}_shop`;
+      const uploadResult = await supabaseService.uploadImageSizes(
+        processedImages,
+        tempItemId,
+        "shop"
+      );
+
+      if (uploadResult.success) {
+        results.data.imageUrls.shop = uploadResult.data.shop?.url;
+        results.data.imageUrls.shopThumbnail = uploadResult.data.thumbnail?.url;
+        results.data.imageUrls.shopMedium = uploadResult.data.medium?.url;
+        results.data.processedSizes.push("shop");
+      }
+    }
+
+    logger.info(
+      `Successfully processed ${results.data.processedSizes.length} image types`
+    );
+
+    res.json({
+      success: true,
+      message: `Successfully processed ${results.data.processedSizes.join(
+        " and "
+      )} images`,
+      data: results.data,
+    });
+  } catch (error) {
+    logger.error("Error in uploadItemImages:", error);
+    throw new AppError(`Image upload failed: ${error.message}`, 500);
+  }
+});
+
 module.exports = {
   testImageUpload,
   uploadItemImage,
@@ -359,4 +452,5 @@ module.exports = {
   getImageMetadata,
   deleteItemImages,
   checkUploadHealth,
+  uploadItemImages,
 };

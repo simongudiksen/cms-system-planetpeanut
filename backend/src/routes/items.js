@@ -13,6 +13,8 @@ const {
   archiveItem,
   getItemsStats,
   duplicateItem,
+  updateItemImages,
+  deleteItemImage,
 } = require("../controllers/itemController");
 
 const {
@@ -99,5 +101,24 @@ router.post("/:id/archive", authenticateToken, validateItemId, archiveItem);
  * @access  Private
  */
 router.post("/:id/duplicate", authenticateToken, validateItemId, duplicateItem);
+
+/**
+ * @route   PUT /api/items/:id/images
+ * @desc    Update item images
+ * @access  Private
+ */
+router.put("/:id/images", authenticateToken, validateItemId, updateItemImages);
+
+/**
+ * @route   DELETE /api/items/:id/images/:type
+ * @desc    Remove specific image type from item
+ * @access  Private
+ */
+router.delete(
+  "/:id/images/:type",
+  authenticateToken,
+  validateItemId,
+  deleteItemImage
+);
 
 module.exports = router;

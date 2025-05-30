@@ -124,6 +124,29 @@ const createItem = catchAsync(async (req, res) => {
   // Set current user for the model
   Item.currentUser = req.user?.id || "system";
 
+  // Validate image URL format if provided
+  const { imageRaisedUrl, imageShopUrl, imageThumbnailUrl, imageMediumUrl } =
+    req.body;
+
+  // URL validation regex
+  const urlPattern = /^https:\/\/.*\.(jpg|jpeg|png|webp)$/i;
+
+  if (imageRaisedUrl && !urlPattern.test(imageRaisedUrl)) {
+    throw new AppError("Invalid raised image URL format", 400);
+  }
+
+  if (imageShopUrl && !urlPattern.test(imageShopUrl)) {
+    throw new AppError("Invalid shop image URL format", 400);
+  }
+
+  if (imageThumbnailUrl && !urlPattern.test(imageThumbnailUrl)) {
+    throw new AppError("Invalid thumbnail URL format", 400);
+  }
+
+  if (imageMediumUrl && !urlPattern.test(imageMediumUrl)) {
+    throw new AppError("Invalid medium image URL format", 400);
+  }
+
   const item = new Item(req.body);
   await item.save();
 
@@ -331,6 +354,121 @@ const duplicateItem = catchAsync(async (req, res) => {
   });
 });
 
+/**
+ * Update item images
+ */
+const updateItemImages = catchAsync(async (req, res) => {
+  // Set current user for the model
+  Item.currentUser = req.user?.id || "system";
+
+  const item = await Item.findById(req.params.id);
+
+  if (!item) {
+    throw new AppError("Item not found", 404);
+  }
+
+  const { imageRaisedUrl, imageShopUrl, imageThumbnailUrl, imageMediumUrl } =
+    req.body;
+
+  // URL validation regex
+  const urlPattern = /^https:\/\/.*\.(jpg|jpeg|png|webp)$/i;
+
+  // Validate URLs if provided
+  if (imageRaisedUrl && !urlPattern.test(imageRaisedUrl)) {
+    throw new AppError("Invalid raised image URL format", 400);
+  }
+
+  if (imageShopUrl && !urlPattern.test(imageShopUrl)) {
+    throw new AppError("Invalid shop image URL format", 400);
+  }
+
+  if (imageThumbnailUrl && !urlPattern.test(imageThumbnailUrl)) {
+    throw new AppError("Invalid thumbnail URL format", 400);
+  }
+
+  if (imageMediumUrl && !urlPattern.test(imageMediumUrl)) {
+    throw new AppError("Invalid medium image URL format", 400);
+  }
+
+  // Update only the image fields that are provided
+  const updateFields = {};
+  if (imageRaisedUrl !== undefined)
+    updateFields.imageRaisedUrl = imageRaisedUrl;
+  if (imageShopUrl !== undefined) updateFields.imageShopUrl = imageShopUrl;
+  if (imageThumbnailUrl !== undefined)
+    updateFields.imageThumbnailUrl = imageThumbnailUrl;
+  if (imageMediumUrl !== undefined)
+    updateFields.imageMediumUrl = imageMediumUrl;
+
+  // Update item with new image URLs
+  Object.assign(item, updateFields);
+  await item.save();
+
+  res.json({
+    success: true,
+    message: "Item images updated successfully",
+    data: {
+      item,
+      updatedFields: Object.keys(updateFields),
+    },
+  });
+});
+
+/**
+ * Delete specific image type from item
+ */
+const deleteItemImage = catchAsync(async (req, res) => {
+  // Set current user for the model
+  Item.currentUser = req.user?.id || "system";
+
+  const { id, type } = req.params;
+
+  const item = await Item.findById(id);
+
+  if (!item) {
+    throw new AppError("Item not found", 404);
+  }
+
+  // Map image types to field names
+  const imageTypeMap = {
+    raised: "imageRaisedUrl",
+    shop: "imageShopUrl",
+    thumbnail: "imageThumbnailUrl",
+    medium: "imageMediumUrl",
+  };
+
+  const fieldName = imageTypeMap[type];
+
+  if (!fieldName) {
+    throw new AppError(
+      "Invalid image type. Valid types: raised, shop, thumbnail, medium",
+      400
+    );
+  }
+
+  // Check if the image field exists and has a value
+  if (!item[fieldName]) {
+    throw new AppError(`No ${type} image found for this item`, 404);
+  }
+
+  // Store the old URL for response
+  const removedUrl = item[fieldName];
+
+  // Remove the image URL
+  item[fieldName] = undefined;
+  await item.save();
+
+  res.json({
+    success: true,
+    message: `${type} image removed successfully`,
+    data: {
+      item,
+      removedImageType: type,
+      removedUrl,
+    },
+  });
+});
+
 module.exports = {
   getAllItems,
   getItemById,
@@ -342,4 +480,6 @@ module.exports = {
   archiveItem,
   getItemsStats,
   duplicateItem,
+  updateItemImages,
+  deleteItemImage,
 };
