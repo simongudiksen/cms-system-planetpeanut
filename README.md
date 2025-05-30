@@ -2,7 +2,7 @@
 
 A comprehensive Content Management System for managing avatar items, accessories, and digital assets for the Planet Peanut learning app.
 
-## 🚀 Current Status: Backend Foundation Complete (Step 1.3)
+## 🚀 Current Status: Image Upload Integration Complete (Step 2.2)
 
 ✅ **Completed Features:**
 
@@ -14,12 +14,17 @@ A comprehensive Content Management System for managing avatar items, accessories
 - Item statistics and analytics
 - Item duplication and archiving
 - Multi-status management (draft/published/archived)
+- **NEW: Complete image upload integration with Supabase Storage**
+- **NEW: Multi-size image processing (thumbnail, medium, raised, shop, full)**
+- **NEW: Sharp-based image optimization and WebP conversion**
+- **NEW: Dual image upload endpoint for raised and shop variants**
+- **NEW: Individual image management (update/delete specific image types)**
 
 🔄 **Next Steps:**
 
-- Step 1.4: Supabase integration for image upload
-- Step 2: Frontend development with Next.js
-- Step 3: Authentication & deployment
+- Step 2.3: Frontend image management interface
+- Step 3: Authentication & user management
+- Step 4: Production deployment
 
 ## 📋 Table of Contents
 
@@ -137,18 +142,24 @@ Authorization: Bearer <jwt-token>
 
 ### Endpoints Overview
 
-| Method | Endpoint               | Description                          | Auth Required |
-| ------ | ---------------------- | ------------------------------------ | ------------- |
-| GET    | `/items`               | List items with filtering/pagination | No            |
-| GET    | `/items/:id`           | Get single item                      | No            |
-| POST   | `/items`               | Create new item                      | Yes           |
-| PUT    | `/items/:id`           | Update item                          | Yes           |
-| DELETE | `/items/:id`           | Delete item                          | Yes           |
-| POST   | `/items/:id/publish`   | Publish item                         | Yes           |
-| POST   | `/items/:id/unpublish` | Unpublish item                       | Yes           |
-| POST   | `/items/:id/archive`   | Archive item                         | Yes           |
-| POST   | `/items/:id/duplicate` | Duplicate item                       | Yes           |
-| GET    | `/items/stats/summary` | Get statistics                       | Yes           |
+| Method                    | Endpoint                  | Description                          | Auth Required |
+| ------------------------- | ------------------------- | ------------------------------------ | ------------- |
+| GET                       | `/items`                  | List items with filtering/pagination | No            |
+| GET                       | `/items/:id`              | Get single item                      | No            |
+| POST                      | `/items`                  | Create new item                      | Yes           |
+| PUT                       | `/items/:id`              | Update item                          | Yes           |
+| DELETE                    | `/items/:id`              | Delete item                          | Yes           |
+| POST                      | `/items/:id/publish`      | Publish item                         | Yes           |
+| POST                      | `/items/:id/unpublish`    | Unpublish item                       | Yes           |
+| POST                      | `/items/:id/archive`      | Archive item                         | Yes           |
+| POST                      | `/items/:id/duplicate`    | Duplicate item                       | Yes           |
+| GET                       | `/items/stats/summary`    | Get statistics                       | Yes           |
+| **NEW: Upload Endpoints** |                           |                                      |
+| GET                       | `/upload/health`          | Check upload service status          | No            |
+| POST                      | `/upload/item-images`     | Upload raised & shop images          | Yes           |
+| POST                      | `/upload/item/:itemId`    | Upload single image to existing item | Yes           |
+| PUT                       | `/items/:id/images`       | Update item image URLs               | Yes           |
+| DELETE                    | `/items/:id/images/:type` | Remove specific image type           | Yes           |
 
 ### Detailed API Examples
 
@@ -233,6 +244,55 @@ Authorization: Bearer <token>
 }
 ```
 
+#### 4. Upload Images and Create Item (NEW)
+
+````bash
+# Step 1: Upload both raised and shop images
+POST /api/upload/item-images
+Authorization: Bearer <token>
+Content-Type: multipart/form-data
+
+# Form data:
+imageRaised=@echo-visor-raised.png
+imageShop=@echo-visor-shop.png
+
+# Response
+{
+  "success": true,
+  "message": "Successfully processed raised and shop images",
+  "data": {
+    "imageUrls": {
+      "raised": "https://supabase.co/.../raised.webp",
+      "raisedThumbnail": "https://supabase.co/.../thumbnail.webp",
+      "raisedMedium": "https://supabase.co/.../medium.webp",
+      "shop": "https://supabase.co/.../shop.webp",
+      "shopThumbnail": "https://supabase.co/.../thumbnail.webp",
+      "shopMedium": "https://supabase.co/.../medium.webp"
+    },
+    "processedSizes": ["raised", "shop"]
+  }
+}
+
+# Step 2: Create item with image URLs
+POST /api/items
+Content-Type: application/json
+Authorization: Bearer <token>
+
+{
+  "title": "Echo Visor",
+  "price": 859,
+  "currency": "diamonds",
+  "clothingType": "experimental tech",
+  "layer": "head_layer1",
+  "level": 13,
+  "tags": ["experimental"],
+  "description": "Advanced experimental visor with echo technology",
+  "imageRaisedUrl": "https://supabase.co/.../raised.webp",
+  "imageShopUrl": "https://supabase.co/.../shop.webp",
+  "imageThumbnailUrl": "https://supabase.co/.../thumbnail.webp",
+  "imageMediumUrl": "https://supabase.co/.../medium.webp"
+}
+
 ### Available Filters
 
 - **status**: `draft`, `published`, `archived`
@@ -286,7 +346,7 @@ Authorization: Bearer <token>
   createdAt: Date (auto)
   updatedAt: Date (auto)
 }
-```
+````
 
 ### Virtual Properties
 

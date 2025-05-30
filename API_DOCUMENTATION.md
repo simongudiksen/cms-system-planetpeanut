@@ -542,6 +542,254 @@ Get comprehensive item statistics and distribution data.
 }
 ```
 
+## Upload Endpoints
+
+### Upload Service Health
+
+#### GET /upload/health
+
+Check upload service status and Supabase Storage connectivity.
+
+**Authentication:** None required
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "Upload service healthy",
+  "data": {
+    "supabase": {
+      "connected": true,
+      "error": null
+    },
+    "imageService": {
+      "configured": true,
+      "maxFileSize": "5MB",
+      "allowedTypes": ["image/jpeg", "image/png", "image/webp"],
+      "imageSizes": ["thumbnail", "medium", "raised", "shop", "full"]
+    }
+  }
+}
+```
+
+### Upload Item Images
+
+#### POST /upload/item-images
+
+Upload both raised and shop images for item creation. Processes images and returns URLs for all generated sizes.
+
+**Authentication:** Required
+
+**Content-Type:** `multipart/form-data`
+
+**Form Fields:**
+
+- `imageRaised` (file, optional): Raised state image file (PNG, JPG, WebP, max 5MB)
+- `imageShop` (file, optional): Shop display image file (PNG, JPG, WebP, max 5MB)
+
+**Note:** At least one image file is required.
+
+**Example Request:**
+
+```bash
+curl -X POST http://localhost:3001/api/upload/item-images \
+  -H "Authorization: Bearer your-jwt-token" \
+  -F "imageRaised=@echo-visor-raised.png" \
+  -F "imageShop=@echo-visor-shop.png"
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "Successfully processed raised and shop images",
+  "data": {
+    "imageUrls": {
+      "raised": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567890_raised/raised.webp",
+      "raisedThumbnail": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567890_raised/thumbnail.webp",
+      "raisedMedium": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567890_raised/medium.webp",
+      "shop": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567891_shop/shop.webp",
+      "shopThumbnail": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567891_shop/thumbnail.webp",
+      "shopMedium": "https://supabase.co/storage/v1/object/public/item-images/temp_1234567891_shop/medium.webp"
+    },
+    "processedSizes": ["raised", "shop"]
+  }
+}
+```
+
+### Upload Single Item Image
+
+#### POST /upload/item/:itemId
+
+Upload and update a single image for an existing item.
+
+**Authentication:** Required
+
+**Parameters:**
+
+- `itemId` (string, required): MongoDB ObjectId of the item
+
+**Body:**
+
+- `imageType` (string, optional): Type of image ("raised", "shop", "thumbnail", "medium", "item")
+
+**Content-Type:** `multipart/form-data`
+
+**Form Fields:**
+
+- `image` (file, required): Image file (PNG, JPG, WebP, max 5MB)
+
+**Example Request:**
+
+```bash
+curl -X POST http://localhost:3001/api/upload/item/6839b79b382c0ffd1ef3df2b \
+  -H "Authorization: Bearer your-jwt-token" \
+  -F "image=@new-helmet.png" \
+  -F "imageType=raised"
+```
+
+### Update Item Images
+
+#### PUT /items/:id/images
+
+Update image URLs for an existing item. Used after uploading images to associate URLs with the item.
+
+**Authentication:** Required
+
+**Parameters:**
+
+- `id` (string, required): MongoDB ObjectId of the item
+
+**Request Body:**
+
+```json
+{
+  "imageRaisedUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/raised.webp",
+  "imageShopUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/shop.webp",
+  "imageThumbnailUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/thumbnail.webp",
+  "imageMediumUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/medium.webp"
+}
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "Item images updated successfully",
+  "data": {
+    "item": {
+      "_id": "6839b79b382c0ffd1ef3df2b",
+      "title": "Echo Visor",
+      "imageRaisedUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/raised.webp",
+      "imageShopUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/shop.webp",
+      "imageThumbnailUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/thumbnail.webp",
+      "imageMediumUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/medium.webp"
+      // ... other item fields
+    },
+    "updatedFields": [
+      "imageRaisedUrl",
+      "imageShopUrl",
+      "imageThumbnailUrl",
+      "imageMediumUrl"
+    ]
+  }
+}
+```
+
+### Delete Item Image
+
+#### DELETE /items/:id/images/:type
+
+Remove a specific image type from an item.
+
+**Authentication:** Required
+
+**Parameters:**
+
+- `id` (string, required): MongoDB ObjectId of the item
+- `type` (string, required): Image type to remove ("raised", "shop", "thumbnail", "medium")
+
+**Example Request:**
+
+```bash
+curl -X DELETE http://localhost:3001/api/items/6839b79b382c0ffd1ef3df2b/images/thumbnail \
+  -H "Authorization: Bearer your-jwt-token"
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "message": "thumbnail image removed successfully",
+  "data": {
+    "item": {
+      "_id": "6839b79b382c0ffd1ef3df2b",
+      "title": "Echo Visor",
+      "imageRaisedUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/raised.webp",
+      "imageShopUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/shop.webp",
+      "imageThumbnailUrl": null,
+      "imageMediumUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/medium.webp"
+      // ... other item fields
+    },
+    "removedImageType": "thumbnail",
+    "removedUrl": "https://supabase.co/storage/v1/object/public/item-images/item123/thumbnail.webp"
+  }
+}
+```
+
+### Image Processing Specifications
+
+**Generated Image Sizes:**
+
+- **Thumbnail**: 256x256 pixels, quality 80%, fit 'cover' (square crop)
+- **Medium**: 512x512 pixels, quality 85%, fit 'cover' (square crop)
+- **Raised**: 2079x2954 pixels, quality 95%, fit 'contain' (1:1.42 aspect ratio, portrait)
+- **Shop**: 1040x1477 pixels, quality 90%, fit 'contain' (1:1.42 aspect ratio, portrait)
+- **Full**: 1024x1024 pixels, quality 90%, fit 'cover' (backward compatibility)
+
+**File Format:** All processed images are converted to WebP for optimal compression and quality.
+
+**Storage:** Images are stored in Supabase Storage in the `item-images` bucket with organized folder structure.
+
+### Complete Item Creation Workflow
+
+**Step 1: Upload Images**
+
+```bash
+curl -X POST http://localhost:3001/api/upload/item-images \
+  -H "Authorization: Bearer your-jwt-token" \
+  -F "imageRaised=@echo-visor-raised.png" \
+  -F "imageShop=@echo-visor-shop.png"
+```
+
+**Step 2: Create Item with Image URLs**
+
+```bash
+curl -X POST http://localhost:3001/api/items \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-jwt-token" \
+  -d '{
+    "title": "Echo Visor",
+    "price": 859,
+    "currency": "diamonds",
+    "clothingType": "experimental tech",
+    "layer": "head_layer1",
+    "level": 13,
+    "tags": ["experimental"],
+    "description": "Advanced experimental visor with echo technology",
+    "imageRaisedUrl": "https://supabase.co/.../raised.webp",
+    "imageShopUrl": "https://supabase.co/.../shop.webp",
+    "imageThumbnailUrl": "https://supabase.co/.../thumbnail.webp",
+    "imageMediumUrl": "https://supabase.co/.../medium.webp"
+  }'
+```
+
+---
+
 ## Data Models
 
 ### Item Schema
@@ -747,4 +995,11 @@ const getItems = async () => {
 ## Version History
 
 - **v1.0.0** - Initial API implementation with complete CRUD operations
-- Next: Image upload integration with Supabase Storage
+- **v1.1.0** - Step 2.2: Image Upload Integration
+  - Added POST /upload/item-images for dual image upload
+  - Added PUT /items/:id/images for image URL updates
+  - Added DELETE /items/:id/images/:type for specific image removal
+  - Added GET /upload/health for service monitoring
+  - Implemented Sharp-based image processing with 5 size variants
+  - Integrated Supabase Storage with organized folder structure
+  - Added comprehensive URL validation and error handling

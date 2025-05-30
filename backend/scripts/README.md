@@ -1,5 +1,7 @@
 # Planet Peanut Image Processing Scripts
 
+**✅ Status**: Step 2.2 Integration Complete - These scripts are now fully integrated with the main Planet Peanut CMS API system.
+
 This directory contains scripts to process and import images from the `ImageRaised` and `ImageShop` folders into the Planet Peanut CMS system.
 
 ## Overview
