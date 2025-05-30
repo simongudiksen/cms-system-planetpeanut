@@ -17,6 +17,13 @@ const ItemSchema = new mongoose.Schema(
       default: "",
     },
 
+    // Original ID from metadata (for tracking imported items)
+    originalId: {
+      type: String,
+      trim: true,
+      index: true, // For efficient lookups
+    },
+
     // Categorization
     tags: [
       {
