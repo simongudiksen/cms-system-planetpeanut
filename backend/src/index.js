@@ -11,6 +11,7 @@ const { globalErrorHandler, notFound } = require("./middleware/errorHandler");
 
 // Import routes
 const itemRoutes = require("./routes/items");
+const uploadRoutes = require("./routes/upload");
 
 // Initialize Express app
 const app = express();
@@ -75,6 +76,7 @@ app.get("/health", (req, res) => {
 
 // API routes
 app.use("/api/items", itemRoutes);
+app.use("/api/upload", uploadRoutes);
 
 // Root endpoint
 app.get("/", (req, res) => {

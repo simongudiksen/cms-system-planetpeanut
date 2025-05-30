@@ -31,3 +31,63 @@
 {"level":"info","message":"::1 - - [30/May/2025:13:51:01 +0000] \"POST /api/items/6839b792382c0ffd1ef3df29/duplicate HTTP/1.1\" 201 591 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:01.937Z"}
 {"level":"info","message":"::1 - - [30/May/2025:13:51:09 +0000] \"POST /api/items HTTP/1.1\" 201 588 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:09.668Z"}
 {"level":"info","message":"::1 - - [30/May/2025:13:51:14 +0000] \"GET /api/items?clothingType=battle%20armor&currency=diamonds&minLevel=20 HTTP/1.1\" 200 697 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:51:14.643Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:15:04.548Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:15:04.549Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:15:04.549Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:15:10 +0000] \"GET /health HTTP/1.1\" 200 243 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:15:10.842Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:15:18 +0000] \"GET /api/upload/health HTTP/1.1\" 200 390 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:15:18.777Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:15:27 +0000] \"GET /api/upload/health HTTP/1.1\" 200 390 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:15:27.295Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:16:41 +0000] \"POST /api/upload/test HTTP/1.1\" 400 145 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:16:41.504Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:16:50 +0000] \"POST /api/upload/metadata HTTP/1.1\" 400 145 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:16:50.058Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:17:05 +0000] \"POST /api/upload/metadata HTTP/1.1\" 200 360 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:17:05.486Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:17:41 +0000] \"POST /api/upload/test HTTP/1.1\" 200 1106 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:17:41.238Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:18:13 +0000] \"GET /api/items?limit=1 HTTP/1.1\" 200 633 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:18:13.949Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:18:25 +0000] \"POST /api/upload/item/6839b7cd382c0ffd1ef3df3a HTTP/1.1\" 200 2762 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:18:25.489Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:28:41.010Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:28:41.011Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:28:41.011Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:28:51.579Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:28:51.579Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:28:51.580Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:28:53.038Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:28:53.038Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:28:53.038Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:29:00.464Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:29:00.464Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:29:00.465Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:29:01.716Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:29:01.716Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:29:01.717Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:29:10.947Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:29:10.947Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:29:10.948Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:29:18.396Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:29:18.396Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:29:18.396Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:29:27 +0000] \"GET /api/upload/health HTTP/1.1\" 200 564 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:29:27.660Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:29:39.647Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:29:39.647Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:29:39.648Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:29:57 +0000] \"POST /api/upload/item/6839b7cd382c0ffd1ef3df3a HTTP/1.1\" 200 3432 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:29:57.999Z"}
+{"level":"info","message":"::1 - - [30/May/2025:14:31:19 +0000] \"POST /api/upload/item/6839b7cd382c0ffd1ef3df3a HTTP/1.1\" 200 3402 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T14:31:19.849Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:35:11.944Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:35:11.944Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:35:11.944Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:35:13.405Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:35:13.406Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:35:13.406Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:37:32.281Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:37:32.281Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:37:32.281Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:41:28.904Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:41:28.904Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:41:28.905Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:41:30.776Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:41:30.776Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:41:30.776Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:42:05.102Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:42:05.102Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:42:05.103Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T14:44:38.280Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T14:44:38.281Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T14:44:38.281Z"}
