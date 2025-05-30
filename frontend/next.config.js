@@ -4,7 +4,8 @@ const nextConfig = {
   images: {
     domains: [
       "localhost",
-      // Add your Supabase project URL domain here
+      "ecatptzltpvsknotehbe.supabase.co",
+      "images.unsplash.com", // For demo images
     ],
   },
   // Enable SWC minification
