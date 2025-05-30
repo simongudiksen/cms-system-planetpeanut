@@ -1,0 +1,28 @@
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:08.344Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:13.353Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:18.359Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:23.364Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:28.370Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:34:33.378Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:36:48.067Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:36:48.069Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:36:53.073Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:36:53.073Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:36:58.077Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:36:58.077Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:37:03.079Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:37:03.079Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:37:08.082Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:37:08.083Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:37:13.086Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:27.395Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:42:27.401Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:32.414Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:42:32.415Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:37.418Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:42:37.418Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:42.429Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:42:42.430Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:47.433Z"}
+{"level":"error","message":"Error details:","name":"MongoParseError","timestamp":"2025-05-30T13:42:47.434Z"}
+{"level":"error","message":"❌ MongoDB connection failed:","timestamp":"2025-05-30T13:42:52.441Z"}

@@ -1,0 +1,18 @@
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T13:34:08.347Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T13:34:08.347Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T13:34:08.347Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T13:36:48.071Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T13:36:48.071Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T13:36:48.071Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T13:43:35.729Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T13:43:35.730Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T13:43:35.730Z"}
+{"level":"info","message":"🚀 Server running on port 3001","timestamp":"2025-05-30T13:44:40.612Z"}
+{"level":"info","message":"📊 Health check available at http://localhost:3001/health","timestamp":"2025-05-30T13:44:40.613Z"}
+{"level":"info","message":"🌍 Environment: development","timestamp":"2025-05-30T13:44:40.613Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:44:47 +0000] \"GET /health HTTP/1.1\" 200 245 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:44:47.998Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:44:56 +0000] \"GET / HTTP/1.1\" 200 100 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:44:56.948Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:45:05 +0000] \"GET /api/items HTTP/1.1\" 200 148 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:05.172Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:45:19 +0000] \"POST /api/items HTTP/1.1\" 201 392 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:19.000Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:45:31 +0000] \"GET /api/items HTTP/1.1\" 200 425 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:31.649Z"}
+{"level":"info","message":"::1 - - [30/May/2025:13:45:40 +0000] \"POST /api/items/6839b66ea23c1ed1480d0bfe/publish HTTP/1.1\" 200 424 \"-\" \"curl/8.6.0\"","timestamp":"2025-05-30T13:45:40.358Z"}
